@@ -31,14 +31,14 @@ BASE_DEPENDENCY_LINKS = []
 os.chdir(os.path.normpath(BASEDIR))
 
 setup(
-    name='honeycomb-geom-rendering',
+    name='honeycomb-geom-processor',
     packages=find_packages(),
     version=VERSION,
     include_package_data=True,
     description='A generator for producing and storing honeycomb video geoms',
     long_description=open('honeycomb_tools/README.md').read(),
-    url='https://github.com/WildflowerSchools/honeycomb-geom-rendering',
-    author='Benjamin Jaffe-Taberg',
+    url='https://github.com/WildflowerSchools/honeycomb-geom-processor',
+    author='Benjamin Jaffe-Talberg',
     author_email='ben.talberg@wildflowerschools.org',
     install_requires=BASE_DEPENDENCIES,
     dependency_links=BASE_DEPENDENCY_LINKS,

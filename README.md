@@ -1,4 +1,4 @@
-# honeycomb-geom-rendering
+# honeycomb-geom-processor
 
 ## Development
 
@@ -10,8 +10,8 @@ Open: [https://localhost:8010](https://localhost:8010)
 
 *BUILD:*
 
-```docker build -t honeycomb-geom-rendering:prepare -f Prepare.Dockerfile .```
+```docker build -t honeycomb-geom-processor:prepare -f Prepare.Dockerfile .```
 
 *RUN:*
 
-```docker run --env-file ./honeycomb_tools/.env --network honeycomb-geom-rendering_default honeycomb-geom-rendering:prepare```
+```docker run --env-file ./honeycomb_tools/.env --network honeycomb-geom-processor_default honeycomb-geom-processor:prepare```

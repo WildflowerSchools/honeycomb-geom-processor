@@ -7,10 +7,10 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=iamaninsecurepassword
-      - POSTGRES_USER=geom-rendering-user
-      - POSTGRES_DB=geom-rendering
+      - POSTGRES_USER=geom-processor-user
+      - POSTGRES_DB=geom-processor
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U geom-rendering-user geom-rendering"]
+      test: ["CMD-SHELL", "pg_isready -U geom-processor-user geom-processor"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -19,7 +19,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
-  geom-rendering:
+  geom-processor:
     build:
       context: .
       dockerfile: Dockerfile-dev
@@ -35,8 +35,8 @@ services:
     environment:
       - NODE_ENV=development
       - PGPASSWORD=iamaninsecurepassword
-      - PGUSER=geom-rendering-user
-      - PGDATABASE=geom-rendering
+      - PGUSER=geom-processor-user
+      - PGDATABASE=geom-processor
       - PGHOST=timescaledb
       - WAIT_HOSTS=timescaledb:5432
 

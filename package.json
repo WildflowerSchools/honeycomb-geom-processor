@@ -1,5 +1,5 @@
 {
-  "name": "honeycomb-geom-rendering",
+  "name": "honeycomb-geom-processor",
   "version": "0.1.0",
   "description": "Geom socket server that generates geom objects from honeycomb for overlaying on video",
   "main": "src/index.js",

@@ -18,9 +18,9 @@ HONEYCOMB_AUDIENCE = os.getenv("HONEYCOMB_AUDIENCE", "https://honeycomb.api.wild
 HONEYCOMB_CLIENT_ID = os.getenv("HONEYCOMB_CLIENT_ID")
 HONEYCOMB_CLIENT_SECRET = os.getenv("HONEYCOMB_CLIENT_SECRET")
 
-PG_USER = os.getenv("PGUSER", "geom-rendering")
+PG_USER = os.getenv("PGUSER", "geom-processor")
 PG_PASSWORD = os.getenv("PGPASSWORD", "iamaninsecurepassword")
-PG_DATABASE = os.getenv("PGDATABASE", "geom-rendering")
+PG_DATABASE = os.getenv("PGDATABASE", "geom-processor")
 PG_PORT = os.getenv("PGPORT", "5432")
 PG_HOST = os.getenv("PGHOST", "localhost")
 

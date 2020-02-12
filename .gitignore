@@ -1,6 +1,6 @@
 honeycomb_tools/.env
 honeycomb_tools/__pycache__/
-honeycomb_geom_rendering.egg-info/
+honeycomb_geom_processor.egg-info/
 
 .env
 build
