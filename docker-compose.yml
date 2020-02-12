@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  timescaledb:
+    image: timescale/timescaledb:1.6.0-pg11
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=iamaninsecurepassword
+      - POSTGRES_USER=geom-rendering-user
+      - POSTGRES_DB=geom-rendering
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geom-rendering-user geom-rendering"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '5435:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  geom-rendering:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    command: "scripts/setup-and-startup.sh"
+    depends_on:
+      - "timescaledb"
+    volumes:
+      - '.:/app'
+      - node-modules:/app/node_modules
+    ports:
+      - '8010:8010'
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - PGPASSWORD=iamaninsecurepassword
+      - PGUSER=geom-rendering-user
+      - PGDATABASE=geom-rendering
+      - PGHOST=timescaledb
+      - WAIT_HOSTS=timescaledb:5432
+
+volumes:
+  db-data:
+  node-modules:

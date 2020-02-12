@@ -1,0 +1,10 @@
+{
+  "defaultEnv": "postgres",
+  "postgres": {
+    "driver": "pg",
+    "database": {"ENV": "PGDATABASE"},
+    "host": {"ENV":  "PGHOST"},
+    "user": {"ENV": "PGUSER"},
+    "password": {"ENV": "PGPASSWORD"}
+  }
+}

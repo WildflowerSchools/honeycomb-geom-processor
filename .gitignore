@@ -1,0 +1,11 @@
+honeycomb_tools/.env
+honeycomb_tools/__pycache__/
+honeycomb_geom_rendering.egg-info/
+
+.env
+build
+dist
+node_modules
+venv
+
+
