@@ -38,7 +38,21 @@ services:
       - PGUSER=geom-processor-user
       - PGDATABASE=geom-processor
       - PGHOST=timescaledb
-      - WAIT_HOSTS=timescaledb:5432
+
+  geom-processor-prepare:
+    build:
+      context: .
+      dockerfile: Prepare.Dockerfile
+    entrypoint: "bash -c"
+    command: "exit 0"
+    depends_on:
+      - "timescaledb"
+    env_file: ./honeycomb_tools/.env
+    environment:
+      - PGPASSWORD=iamaninsecurepassword
+      - PGUSER=geom-processor-user
+      - PGDATABASE=geom-processor
+      - PGHOST=timescaledb
 
 volumes:
   db-data:

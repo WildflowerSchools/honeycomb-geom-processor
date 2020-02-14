@@ -18,7 +18,7 @@ HONEYCOMB_AUDIENCE = os.getenv("HONEYCOMB_AUDIENCE", "https://honeycomb.api.wild
 HONEYCOMB_CLIENT_ID = os.getenv("HONEYCOMB_CLIENT_ID")
 HONEYCOMB_CLIENT_SECRET = os.getenv("HONEYCOMB_CLIENT_SECRET")
 
-PG_USER = os.getenv("PGUSER", "geom-processor")
+PG_USER = os.getenv("PGUSER", "geom-processor-user")
 PG_PASSWORD = os.getenv("PGPASSWORD", "iamaninsecurepassword")
 PG_DATABASE = os.getenv("PGDATABASE", "geom-processor")
 PG_PORT = os.getenv("PGPORT", "5432")
@@ -70,7 +70,7 @@ def prepare_geoms_for_environment_for_day_for_source(ctx, environment_name, day,
     # prepare list of datapoints for each assignment for the time period selected
     start = (datetime_of_day + timedelta(hours=13)).isoformat()
     end = (datetime_of_day + timedelta(hours=22)).isoformat()
-    ctx.invoke(prepare_geoms_for_environment_for_time_range, environment_name=environment_name, start=start, end=end, source=source)
+    ctx.invoke(prepare_geoms_for_environment_for_time_range_for_source, environment_name=environment_name, start=start, end=end, source=source)
 
 
 @main.command()
@@ -79,7 +79,7 @@ def prepare_geoms_for_environment_for_day_for_source(ctx, environment_name, day,
 @click.option('--start', help='start time of video to load expects format to be YYYY-MM-DDTHH:MM', required=True)
 @click.option('--end', help='end time of video to load expects format to be YYYY-MM-DDTHH:MM', required=True)
 @click.option('--source', "-s", help='name of the source type to generate geoms for [''cuwb'', ''poseflow'', ''alphapose'']', required=True)
-def prepare_geoms_for_environment_for_time_range(ctx, environment_name, start, end, source):
+def prepare_geoms_for_environment_for_time_range_for_source(ctx, environment_name, start, end, source):
     honeycomb_client = ctx.obj['honeycomb_client']
     pg_client = ctx.obj['pg']
 
