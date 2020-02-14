@@ -20,6 +20,11 @@ docker-push: build-docker
     @docker push wildflowerschools/honeycomb-geom-processor:{{version}}
     @docker push wildflowerschools/honeycomb-geom-processor:prepare-{{version}}
 
+tag-release:
+    git tag -a {{version}} -m ""
+
+push-release: tag-release
+    git push origin `git describe --abbrev=0`
 
 prepare-geoms:
     @python -m honeycomb_tools prepare-geoms-for-environment-for-time-range-for-source  --environment_name {{environment_name}} --start {{start}} --end {{end}} --source {{source}}
