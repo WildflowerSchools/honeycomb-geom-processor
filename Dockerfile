@@ -1,4 +1,4 @@
-FROM node:10.17.0-alpine
+FROM node:10.18.1-alpine
 
 WORKDIR /app
 
@@ -9,4 +9,4 @@ RUN npm install --only=production
 
 COPY src/ /app/
 
-CMD node index.js
+CMD ["scripts/setup-and-startup.sh"]
