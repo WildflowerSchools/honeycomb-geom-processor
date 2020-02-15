@@ -1,4 +1,4 @@
-version := "v0-local"
+version := "v1"
 
 environment_name := "capucine"
 start := "2020-01-17T13:00"
@@ -27,4 +27,4 @@ push-release: tag-release
     git push origin `git describe --abbrev=0`
 
 prepare-geoms:
-    @python -m honeycomb_tools prepare-geoms-for-environment-for-time-range-for-source  --environment_name {{environment_name}} --start {{start}} --end {{end}} --source {{source}}
+    @python -m honeycomb_tools prepare-geoms-for-environment-for-time-range-for-source --environment_name {{environment_name}} --start {{start}} --end {{end}} --source {{source}}
