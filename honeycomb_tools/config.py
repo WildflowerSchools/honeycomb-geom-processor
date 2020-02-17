@@ -16,4 +16,4 @@ PG_DATABASE = os.getenv("PGDATABASE", "geom-processor")
 PG_PORT = os.getenv("PGPORT", "5432")
 PG_HOST = os.getenv("PGHOST", "localhost")
 
-MAX_WORKERS = os.getenv("MAX_WORKERS", 5)
+MAX_WORKERS = int(os.getenv("MAX_WORKERS", 5))
