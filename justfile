@@ -1,4 +1,4 @@
-version := "v0-local"
+version := "v1"
 
 environment_name := "capucine"
 start := "2020-01-17T13:00"

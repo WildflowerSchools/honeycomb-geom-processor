@@ -10,14 +10,14 @@ import time
 from process_cuwb_data import fetch_geoms_2d
 from geom_render import GeomJSONEncoder
 
+import honeycomb_tools.config as config
 from honeycomb_tools.introspection import get_device_to_assignment_mapping, get_environment_id
 from honeycomb_tools.handle import put_sample, update_sample_status, delete_sample, put_geom, put_coordinates_list
 from honeycomb_tools.util import kill_child_processes
 
 
-#  Max number of threads
+#  Max number of threads = MAX_WORKERS
 #  Caution, each thread will attempt to throw a large # of coordinates at postgres using the PG copy_from functionality
-MAX_WORKERS = 5
 
 
 class ProcessingError(Exception):
@@ -42,7 +42,7 @@ def process_geoms_2d(honeycomb_client, pg_client, environment_name, start_time, 
     cursor = conn.cursor()
 
     sample_db_id = None
-    pool = ThreadPoolExecutor(max_workers=MAX_WORKERS)
+    pool = ThreadPoolExecutor(max_workers=config.MAX_WORKERS)
 
     try:
         geom_collection_for_sample_meta = next(iter(sample_collection.values()))['geom']

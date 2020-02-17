@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: honeycomb-geom-processor-prepare-2019-01-17
+  name: honeycomb-geom-processor-prepare-2020-01-17-cuwb
   namespace: honeycomb
 spec:
   template:
@@ -12,20 +12,22 @@ spec:
         iam.amazonaws.com/role: honeycomb-role
     spec:
       containers:
-      - name: migrate
-        image: wildflowerschools/honeycomb-geom-processor:prepare-v0
-        envFrom:
-          - secretRef:
-              name: honeycomb-client-settings
-        env:
-        - name: ENVIRONMENT_NAME
-          value: capucine
-        - name: START_TIME
-          value: 2019-12-06T13:00
-        - name: END_TIME
-          value: 2019-12-06T22:00
-        - name: SOURCE
-          value: cuwb
+        - name: geom-processor-prepare
+          image: wildflowerschools/honeycomb-geom-processor:prepare-v1
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: honeycomb-client-settings
+            - configMapRef:
+                name: honeycomb-geom-processor-timescaledb-client-config
+          env:
+            - name: ENVIRONMENT_NAME
+              value: capucine
+            - name: START_TIME
+              value: 2020-01-17T13:00
+            - name: END_TIME
+              value: 2020-01-17T22:00
+            - name: SOURCE
+              value: cuwb
       restartPolicy: OnFailure
   backoffLimit: 4
-

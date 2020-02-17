@@ -3,53 +3,39 @@ import logging
 import os.path
 
 import click
-from dotenv import load_dotenv
 import honeycomb
 import psycopg2
 from psycopg2 import pool
 
+import honeycomb_tools.config as config
 from honeycomb_tools.process import process_geoms_2d
-
-load_dotenv()
-
-HONEYCOMB_URI = os.getenv("HONEYCOMB_URI", "https://honeycomb.api.wildflower-tech.org/graphql")
-HONEYCOMB_TOKEN_URI = os.getenv("HONEYCOMB_TOKEN_URI", "https://wildflowerschools.auth0.com/oauth/token")
-HONEYCOMB_AUDIENCE = os.getenv("HONEYCOMB_AUDIENCE", "https://honeycomb.api.wildflowerschools.org")
-HONEYCOMB_CLIENT_ID = os.getenv("HONEYCOMB_CLIENT_ID")
-HONEYCOMB_CLIENT_SECRET = os.getenv("HONEYCOMB_CLIENT_SECRET")
-
-PG_USER = os.getenv("PGUSER", "geom-processor-user")
-PG_PASSWORD = os.getenv("PGPASSWORD", "iamaninsecurepassword")
-PG_DATABASE = os.getenv("PGDATABASE", "geom-processor")
-PG_PORT = os.getenv("PGPORT", "5432")
-PG_HOST = os.getenv("PGHOST", "localhost")
 
 @click.group()
 @click.pass_context
 def main(ctx):
     ctx.ensure_object(dict)
 
-    if HONEYCOMB_CLIENT_ID is None:
+    if config.HONEYCOMB_CLIENT_ID is None:
         raise ValueError("HONEYCOMB_CLIENT_ID is required")
-    if HONEYCOMB_CLIENT_SECRET is None:
+    if config.HONEYCOMB_CLIENT_SECRET is None:
         raise ValueError("HONEYCOMB_CLIENT_SECRET is required")
 
     ctx.obj['honeycomb_client'] = honeycomb.HoneycombClient(
-        uri=HONEYCOMB_URI,
+        uri=config.HONEYCOMB_URI,
         client_credentials={
-            'token_uri': HONEYCOMB_TOKEN_URI,
-            'audience': HONEYCOMB_AUDIENCE,
-            'client_id': HONEYCOMB_CLIENT_ID,
-            'client_secret': HONEYCOMB_CLIENT_SECRET,
+            'token_uri': config.HONEYCOMB_TOKEN_URI,
+            'audience': config.HONEYCOMB_AUDIENCE,
+            'client_id': config.HONEYCOMB_CLIENT_ID,
+            'client_secret': config.HONEYCOMB_CLIENT_SECRET,
         }
     )
 
     try:
-        ctx.obj['pg'] = psycopg2.pool.ThreadedConnectionPool(1, 20, user=PG_USER,
-                                                             password=PG_PASSWORD,
-                                                             host=PG_HOST,
-                                                             port=PG_PORT,
-                                                             database=PG_DATABASE)
+        ctx.obj['pg'] = psycopg2.pool.ThreadedConnectionPool(1, 20, user=config.PG_USER,
+                                                             password=config.PG_PASSWORD,
+                                                             host=config.PG_HOST,
+                                                             port=config.PG_PORT,
+                                                             database=config.PG_DATABASE)
         conn = ctx.obj['pg'].getconn()
         cursor = conn.cursor()
         cursor.execute('SELECT 1')
