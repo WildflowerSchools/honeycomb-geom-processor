@@ -25,7 +25,7 @@ const session = {
   saveUninitialized: false
 }
 
-const port = process.env.SERVICE_PORT ? process.env.SERVICE_PORT : 8000
+const port = process.env.SERVICE_PORT ? process.env.SERVICE_PORT : 8010
 
 const authConfig = {
   domain: process.env.AUTH0_DOMAIN,
