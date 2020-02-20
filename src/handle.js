@@ -61,7 +61,7 @@ exports.fetchCoordinatesForSampleAndDeviceWithTime = async function(
   sample_id,
   device_id,
   from,
-  seconds = 25
+  seconds
 ) {
   try {
     const sql = `

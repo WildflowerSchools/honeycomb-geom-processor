@@ -40,7 +40,8 @@ const handleGetCoordinates = async (ws, data) => {
   const coordinates = await handle.fetchCoordinatesForSampleAndDeviceWithTime(
     data.sample_id,
     data.device_id,
-    data.from
+    data.from,
+    data.seconds || 25
   )
 
   const grouped = coordinates.reduce((acc, c) => {

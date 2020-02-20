@@ -12,7 +12,8 @@ BASE_DEPENDENCIES = [
     'boto3>=1.10.0',
     'psycopg2>=2.8.4',
     'psutil>=5.6.7',
-    'wf-process-cuwb-data>=0.2.0',
+    'wf-process-cuwb-data>=0.3.0',
+    'wf-process-pose-data>=0.3.0',
     'numpy>=1.18.1'
 ]
 

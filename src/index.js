@@ -13,7 +13,6 @@ const port = process.env.SERVICE_PORT ? process.env.SERVICE_PORT : 8010
 
 let app, server
 ;(async () => {
-
   if (process.env.ENVIRONMENT === "production") {
     const http = require("http")
     app = express()

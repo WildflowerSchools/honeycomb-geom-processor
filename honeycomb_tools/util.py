@@ -1,5 +1,10 @@
 import psutil
 import signal
+import requests
+
+
+def download_pickle(url):
+    return requests.get(url, stream=True).raw
 
 
 def kill_child_processes(parent_pid, sig=signal.SIGTERM):
