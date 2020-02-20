@@ -8,8 +8,8 @@ from honeycomb_tools.handle_utils import IteratorFile
 
 SAMPLES_INSERT = """
     INSERT INTO samples
-        (status, start_time, end_time, frames_per_second, num_frames, frame_width, frame_height, environment_id, source_id, source_type, source_name)
-    VALUES (%(status)s, %(start_time)s, %(end_time)s, %(frames_per_second)s, %(num_frames)s, %(frame_width)s, %(frame_height)s, %(environment_id)s, %(source_id)s, %(source_type)s, %(source_name)s)
+        (status, start_time, end_time, frames_per_second, num_frames, frame_width, frame_height, environment_id, source_id, source_type, source_name, inference_id, inference_name, inference_model, inference_version)
+    VALUES (%(status)s, %(start_time)s, %(end_time)s, %(frames_per_second)s, %(num_frames)s, %(frame_width)s, %(frame_height)s, %(environment_id)s, %(source_id)s, %(source_type)s, %(source_name)s, %(inference_id)s, %(inference_name)s, %(inference_model)s, %(inference_version)s)
     RETURNING id
 """
 
@@ -42,7 +42,7 @@ COORDINATES_INSERT_MANY = """
 """
 
 
-def put_sample(cursor, status, start_time, end_time, frames_per_second, num_frames, frame_width, frame_height, environment_id, source_id, source_type, source_name):
+def put_sample(cursor, status, start_time, end_time, frames_per_second, num_frames, frame_width, frame_height, environment_id, source_id, source_type, source_name, inference_id=None, inference_name=None, inference_model=None, inference_version=None):
     """
     Insert sample record into database and return record ID
 
@@ -57,6 +57,10 @@ def put_sample(cursor, status, start_time, end_time, frames_per_second, num_fram
     :param source_id -- string
     :param source_type -- string
     :param source_name -- string
+    :param inference_id -- string
+    :param inference_name -- string
+    :param inference_model -- string
+    :param inference_version -- string
     :return sample id -- int
     """
     sample_id = None
@@ -72,7 +76,11 @@ def put_sample(cursor, status, start_time, end_time, frames_per_second, num_fram
             'environment_id': environment_id,
             'source_id': source_id,
             'source_type': source_type,
-            'source_name': source_name
+            'source_name': source_name,
+            'inference_id': inference_id,
+            'inference_name': inference_name,
+            'inference_model': inference_model,
+            'inference_version': inference_version
         })
 
         sample_id = cursor.fetchone()[0]
