@@ -92,7 +92,7 @@ def prepare_geoms_for_environment_for_time_range_for_source(ctx, environment_nam
 @click.pass_context
 @click.option('--inference_id', "-i", help='inference id for generating pose geoms', required=True)
 @click.option('--source', "-s", help='name of the source type to generate geoms for [''cuwb'', ''pose'']', required=True)
-def prepare_geoms_for_inference_id(ctx, inference_id, source):
+def prepare_geoms_for_inference_id_for_source(ctx, inference_id, source):
     honeycomb_client = ctx.obj['honeycomb_client']
     pg_client = ctx.obj['pg']
 
